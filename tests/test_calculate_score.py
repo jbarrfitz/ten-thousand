@@ -1,8 +1,6 @@
 import pytest
 from ten_thousand.game_logic import GameLogic
 
-pytestmark = [pytest.mark.version_1]
-
 
 def test_single_five():
     actual = GameLogic.calculate_score((5,))
@@ -91,6 +89,30 @@ def test_six_of_a_kind():
 def test_six_ones():
     actual = GameLogic.calculate_score((1, 1, 1, 1, 1, 1))
     expected = 4000
+    assert actual == expected
+
+
+def test_invalid_dice_roll():
+    actual = GameLogic.calculate_score((7,))
+    expected = 0
+    assert actual == expected
+
+
+def test_full_house_with_scoring_pair():
+    actual = GameLogic.calculate_score((1, 1, 1, 5, 5))
+    expected = 1100
+    assert actual == expected
+
+
+def test_full_house_with_non_scoring_pair():
+    actual = GameLogic.calculate_score((1, 1, 1, 2, 2))
+    expected = 1000
+    assert actual == expected
+
+
+def test_too_many_dice():
+    actual = GameLogic.calculate_score((1, 1, 2, 3, 4, 5, 6))
+    expected = 0
     assert actual == expected
 
 
