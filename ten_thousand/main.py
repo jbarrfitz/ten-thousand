@@ -6,6 +6,10 @@ def main():
     banked_points = 0
 
     def welcome():
+        """
+        Prints welcome screen and asks for if the player wants to play the game.
+        :return: (str) "y" or "n"
+        """
         choice = ""
         print("Welcome to Ten Thousand")
         print("(y)es to play or (n)o to decline")
@@ -17,16 +21,17 @@ def main():
             return "y"
 
     def play_round():
+        """
+        Rolls dice, asks the player to roll again, bank, or quit, keeps track of unbanked points.
+        :return: (int) Banked points for the round
+        """
         dice_to_roll = 6
         unbanked_points = 0
         choice = "r"
         print(f"Starting round {round_number}")
         while choice == "r":
             curr_dice_roll = GameLogic.roll_dice(dice_to_roll)
-            dice_roll_msg = "*** "
-            for die in curr_dice_roll:
-                dice_roll_msg += f"{die} "
-            dice_roll_msg += "***"
+            dice_roll_msg = f"*** {' '.join(str(die) for die in curr_dice_roll)} ***"
             print(dice_roll_msg)
             if not GameLogic.calculate_score(curr_dice_roll):
                 return 0
