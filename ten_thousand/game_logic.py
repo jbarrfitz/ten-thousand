@@ -21,7 +21,7 @@ class GameLogic:
         that variable, where I just returned the tuple itself and saved a
         line.
         """
-
+        print(f"Rolling {n} dice...")
         return tuple(random.randint(1, 6) for _ in range(n))
 
     @staticmethod
