@@ -66,7 +66,7 @@ class GameLogic:
         return roll_score
 
     @staticmethod
-    def verify_held_dice(held_dice, dice_roll):
+    def verify_kept_dice(held_dice, dice_roll):
         """
         Checks that the dice that the user selects are all in the roll to prevent cheating/typos
         :param held_dice: tuple of dice that the user has selected to hold
@@ -75,8 +75,11 @@ class GameLogic:
         """
         held_dice_counter = Counter(held_dice)
         dice_roll_counter = Counter(dice_roll)
+        print(held_dice_counter)
+        print(dice_roll_counter)
         for die, frequency in held_dice_counter.items():
-            print("Die: ", die, "Freq: ", frequency)
+            print("Die: ", die)
+            print("Freq: ", frequency)
             print("Dice Roll Counter: ", dice_roll_counter[die])
             print("Held Dice Counter: ", held_dice_counter[die])
             if not dice_roll_counter[die] or dice_roll_counter[die] < held_dice_counter[die]:
