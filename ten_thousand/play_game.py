@@ -16,6 +16,14 @@ def welcome():
     return "y"
 
 
+def process_dice_roll(roll):
+    dice_roll_msg = f"*** {' '.join(str(die) for die in roll)} ***"
+    print(dice_roll_msg)
+    print("Enter dice to keep, or (q)uit:")
+    keep_dice_choice = input("> ")
+    return keep_dice_choice
+
+
 def play_round(round_number):
     """
     Rolls dice, asks the player to roll again, bank, or quit, keeps track of unbanked points.
@@ -23,31 +31,31 @@ def play_round(round_number):
     """
     dice_to_roll = 6
     unbanked_points = 0
-    choice = "r"
+    dice_roll_choice = "r"
     print(f"Starting round {round_number}")
-    while choice == "r":
+    while dice_roll_choice == "r":
         curr_dice_roll = GameLogic.roll_dice(dice_to_roll)
-        dice_roll_msg = f"*** {' '.join(str(die) for die in curr_dice_roll)} ***"
-        print(dice_roll_msg)
         if not GameLogic.calculate_score(curr_dice_roll):
             return 0
-        print("Enter dice to keep, or (q)uit:")
-        choice = input("> ")
-        if choice == "q":
-            return "q"
         else:
-            held_dice = tuple([int(digit) for digit in choice])
-            unbanked_points += GameLogic.calculate_score(held_dice)
-            dice_to_roll -= len(held_dice)
-            print(f"You have {unbanked_points} unbanked points and {dice_to_roll} dice remaining")
-            print("(r)oll again, (b)ank your points or (q)uit:")
-            while True:
-                choice = input("> ")
-                if choice == "r" or choice == "q" or choice == "b":
-                    break
-            if choice == "q":
+            dice_roll_choice = process_dice_roll(curr_dice_roll)
+            if dice_roll_choice == "q":
                 return "q"
-            return unbanked_points
+            else:
+                held_dice = tuple([int(digit) for digit in dice_roll_choice])
+                while not GameLogic.verify_held_dice(held_dice, curr_dice_roll):
+                    process_dice_roll(curr_dice_roll)
+                unbanked_points += GameLogic.calculate_score(held_dice)
+                dice_to_roll -= len(held_dice)
+                print(f"You have {unbanked_points} unbanked points and {dice_to_roll} dice remaining")
+                print("(r)oll again, (b)ank your points or (q)uit:")
+                while True:
+                    dice_roll_choice = input("> ")
+                    if dice_roll_choice == "r" or dice_roll_choice == "q" or dice_roll_choice == "b":
+                        break
+                if dice_roll_choice == "q":
+                    return "q"
+                return unbanked_points
 
 
 def play_game():
