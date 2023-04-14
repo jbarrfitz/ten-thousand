@@ -75,13 +75,7 @@ class GameLogic:
         """
         held_dice_counter = Counter(held_dice)
         dice_roll_counter = Counter(dice_roll)
-        print(held_dice_counter)
-        print(dice_roll_counter)
         for die, frequency in held_dice_counter.items():
-            print("Die: ", die)
-            print("Freq: ", frequency)
-            print("Dice Roll Counter: ", dice_roll_counter[die])
-            print("Held Dice Counter: ", held_dice_counter[die])
             if not dice_roll_counter[die] or dice_roll_counter[die] < held_dice_counter[die]:
                 print("Cheater!!! Or possibly made a typo...")
                 return False

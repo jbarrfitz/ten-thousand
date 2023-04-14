@@ -49,12 +49,18 @@ def play_round(round_number):
     while dice_to_roll:
         curr_dice_roll = GameLogic.roll_dice(dice_to_roll)
         print_dice(curr_dice_roll)
+        if not GameLogic.calculate_score(curr_dice_roll):
+            print("****************************************")
+            print("**        Zilch!!! Round over         **")
+            print("****************************************")
+            return 0
         keep_dice = process_kept_dice(curr_dice_roll)
         if keep_dice == "q":
             return "q"
         unbanked_points += GameLogic.calculate_score(keep_dice)
         dice_to_roll -= len(keep_dice)
-        # deal with hot dice
+        if dice_to_roll == 0:
+            dice_to_roll = 6
         rbq = roll_bank_quit(unbanked_points, dice_to_roll)
         if rbq == "b":
             return unbanked_points
