@@ -5,7 +5,7 @@
 ## Author: Jerry Barrows-Fitzgerald & Araceli García
 
 ### Running:
-    Run the main() function
+    python play_game.py
 
 ### Tests:
 
@@ -16,3 +16,9 @@
 
 Lab 7:
 - Added game play methods, including play_round, quit_game, and welcome 
+
+# Lab - Class 08
+- Added checks for cheaters
+- Added hot dice handling
+- Added zilch handling
+- Reformatted existing code into more manageable functions
