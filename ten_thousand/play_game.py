@@ -1,4 +1,4 @@
-from game_logic import GameLogic
+from ten_thousand.game_logic import GameLogic
 
 
 def welcome():
@@ -17,24 +17,26 @@ def welcome():
 
 
 def print_dice(roll):
-    print("***", *roll, "***")  # Thanks, Anthony
+    print(f"*** {' '.join([str(i) for i in roll])} ***")
 
 
 def process_kept_dice(roll):
-    kept_dice = input("Enter dice to keep, or (q)uit:\n> ")
+    print("Enter dice to keep, or (q)uit:")
+    kept_dice = input("> ")
     if kept_dice == "q":
         return "q"
     kept_rolled_dice = [int(d) for d in kept_dice]
     while not GameLogic.verify_kept_dice(kept_rolled_dice, roll):
         print_dice(roll)
-        kept_dice = input("Enter dice to keep, or (q)uit:\n> ")
+        print("Enter dice to keep, or (q)uit:")
+        kept_dice = input("> ")
         kept_rolled_dice = [int(d) for d in kept_dice]
     return tuple([int(digit) for digit in kept_dice])
 
 
 def roll_bank_quit(unbanked_points, dice_to_roll):
-    print(f"You have {unbanked_points} points and {dice_to_roll} dice remaining")
-    print(f"(r)oll again, (b)ank your points, or (q)uit:")
+    print(f"You have {unbanked_points} unbanked points and {dice_to_roll} dice remaining")
+    print(f"(r)oll again, (b)ank your points or (q)uit:")
     return input("> ")
 
 
