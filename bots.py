@@ -52,9 +52,9 @@ class BaseBot(ABC):
             unbanked_points_part, dice_remaining_part = line.split("unbanked points")
 
             # Hold on to unbanked points and dice remaining for determining rolling vs. banking
-            self.unbanked_points = int(re.sub("\D", "", unbanked_points_part))
+            self.unbanked_points = int(re.sub("\\D", "", unbanked_points_part))
 
-            self.dice_remaining = int(re.sub("\D", "", dice_remaining_part))
+            self.dice_remaining = int(re.sub("\\D", "", dice_remaining_part))
 
         elif line.startswith("*** "):
 
